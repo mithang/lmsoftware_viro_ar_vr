@@ -1,1 +1,6 @@
-Tham khao project full: figment-ar
+1. Tham khao project full: figment-ar
+2. Hien tai khong dung duoc file fbx, nhung viro react da ho tro chuyen sang vrx
+cd node_modules/@viro-community/react-viro/bin
+./ViroFBX ./maggellan_ex.fbx ./maggellan_ex.vrx
+Chu y chuyen ko dc thi chep vao folder do luon
+

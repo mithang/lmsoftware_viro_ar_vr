@@ -5,7 +5,7 @@ import {
   ViroText,
   ViroTrackingStateConstants,
   ViroARSceneNavigator,
-
+  ViroARCamera,
   Viro3DObject,
   ViroAmbientLight,
   ViroSpotLight,
@@ -15,7 +15,27 @@ import {
   ViroAnimations
 } from '@viro-community/react-viro';
 
+
+ViroAnimations.registerAnimations({
+  animateText: {
+    properties: {
+      positionY: "+=1"
+    },
+    duration: 1000
+  },
+  animateShip: {
+    properties: {
+      positionY: "+=20"
+    },
+    duration: 1000
+  },
+});
+
 const HelloWorldSceneAR = (props) => {
+
+  const txtElement = useRef();
+
+
   const [text, setText] = useState('Initializing AR...');
 
   function onInitialized(state, reason) {
@@ -55,7 +75,28 @@ const HelloWorldSceneAR = (props) => {
 
 
     <ViroARScene onTrackingUpdated={onInitialized}>
-      <ViroText
+
+      <ViroAmbientLight color="#FFFFF]" />
+      <Viro3DObject source={require('./maggellan_ex.vrx')}
+        position={[0.0, 3600*1.5, -3600]}
+        scale={[1, 1, 1]}
+        type="VRX"
+        // animation={{
+        // name: 'animateShip', run: true, loop: true}}
+      />
+      {/* <ViroARCamera position={[-1, 0, 0]} active={true} /> */}
+      {/* <ViroARCamera position={[0, 0, 0]} rotation={[0, 0, 45]} active={true}/> */}
+      <ViroText ref={txtElement} style={styles.baseText} text="Sample Text: Y:" position={[0, 15, -10]}
+      // animation={{
+      //   name: 'animateText', run: true, loop: true, onFinish: () => {
+      //     console.log('onFinish');
+      //     console.log(txtElement.current.props.position[0], txtElement.current.props.position[1], txtElement.current.props.position[2]);
+
+      //   }
+      // }}
+      />
+
+      {/* <ViroText
         text={text}
         scale={[0.5, 0.5, 0.5]}
         position={[0, 0, -1]}
@@ -65,8 +106,6 @@ const HelloWorldSceneAR = (props) => {
       <ViroARPlaneSelector>
         <ViroNode position={[0, -.5, 0]} dragType="FixedToWorld" onDrag={() => { }} >
 
-          {/* Spotlight to cast light on the object and a shadow on the surface, see
-            the Viro documentation for more info on lights & shadows */}
           <ViroSpotLight
             innerAngle={5}
             outerAngle={45}
@@ -98,7 +137,7 @@ const HelloWorldSceneAR = (props) => {
             arShadowReceiver={true}
             lightReceivingBitMask={2} />
         </ViroNode>
-      </ViroARPlaneSelector>
+      </ViroARPlaneSelector> */}
       {/* <ViroNode position={[0, 0, -1]} dragType="FixedToWorld" onDrag={() => { }} >
       <Viro3DObject
         source={require('./emoji_smile.vrx')}
